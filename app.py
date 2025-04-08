@@ -1,5 +1,3 @@
-# neuroconnect_dashboard/app.py
-
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
@@ -25,14 +23,12 @@ st.markdown("""
         background-color: #0d1117;
         color: #ffffff;
     }
-    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stSubheader {
+    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stSubheader, .stPlotlyChart div div svg text {
         color: #ffffff !important;
+        fill: #ffffff !important;
     }
 </style>
 """, unsafe_allow_html=True)
-
-st.title("📊 NeuroConnect vs Traditional Autism Treatments")
-st.markdown("""
 ### Scientifically Validated Cost-Scalability Comparison
 """)
 
