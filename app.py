@@ -135,7 +135,7 @@ st.markdown("""
 ### 📚 Reality Check: Why NeuroConnect Changes Everything
 
 **The current standard:**
-- ABA Therapy costs **over $60,000/year** and treats <2 patients per $100K.
+- ABA Therapy costs **over $60,000/year** and treats **fewer than 2 patients per $100K.**
 - Risperidone has an **85% obesity side effect rate** and is non-personalized.
 
 **With NeuroConnect:**
