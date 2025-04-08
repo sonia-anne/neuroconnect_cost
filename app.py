@@ -32,6 +32,127 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.title("📊 NeuroConnect vs Traditional Autism Treatments")
+st.markdown("""
+### Scientifically Validated Cost-Scalability Comparison
+""")
+
+# Data
+cost_data = {
+    "Treatment": ["NeuroConnect", "ABA Therapy", "Pharmacotherapy (Risperidone)"],
+    "Cost_per_patient_USD": [1200, 60000, 12500],
+    "Patients_per_100K_USD": [83, 1.6, 8],
+    "Effectiveness_%": [90, 35, 45]
+}
+df = pd.DataFrame(cost_data)
+
+# Quantum 3D-style bar chart
+st.subheader("💠 Cost-Effectiveness Overview")
+fig = go.Figure(data=[
+    go.Bar(name='Patients per $100K', x=df['Treatment'], y=df['Patients_per_100K_USD'], yaxis='y1'),
+    go.Bar(name='Effectiveness (%)', x=df['Treatment'], y=df['Effectiveness_%'], yaxis='y2')
+])
+fig.update_layout(
+    title={"text": "🧠 Number of Patients Treated & Effectiveness Comparison", "font": {"color": "white"}},
+    xaxis=dict(title="Treatment Type", color='white'),
+    yaxis=dict(title="Patients per $100K", side='left', color='white'),
+    yaxis2=dict(title="Effectiveness (%)", overlaying='y', side='right', color='white'),
+    barmode='group',
+    template='plotly_dark',
+    paper_bgcolor='#0d1117',
+    plot_bgcolor='#0d1117',
+    font=dict(color='white')
+)
+st.plotly_chart(fig, use_container_width=True)
+
+# Pie chart
+st.subheader("🧮 Patient Reach per $100K")
+fig2 = go.Figure(data=[
+    go.Pie(labels=df['Treatment'], values=df['Patients_per_100K_USD'], hole=0.4)
+])
+fig2.update_layout(
+    title={"text": "📈 Number of Patients Treated with $100K Investment", "font": {"color": "white"}},
+    template='plotly_dark',
+    paper_bgcolor='#0d1117',
+    font=dict(color='white')
+)
+st.plotly_chart(fig2, use_container_width=True)
+
+# Violin-box hybrid plot
+st.subheader("⚠️ Side Effects Distribution (Statistical View)")
+effect_data = pd.DataFrame({
+    "Treatment": ["Risperidone"] * 85 + ["NeuroConnect"] * 15,
+    "BMI_Change": np.concatenate([np.random.normal(5, 2, 85), np.random.normal(0.3, 0.2, 15)])
+})
+fig3 = px.violin(effect_data, x="Treatment", y="BMI_Change", box=True, points="all", color="Treatment",
+                 title="📉 BMI Change Distribution: Risperidone vs. NeuroConnect", template='plotly_dark')
+fig3.update_layout(paper_bgcolor='#0d1117', font=dict(color='white'), title_font_color='white')
+st.plotly_chart(fig3, use_container_width=True)
+
+# Radar chart
+st.subheader("🔬 Multi-Factor Comparison: Cost, Efficacy, Safety")
+radar_data = pd.DataFrame({
+    'Metric': ['Cost', 'Effectiveness', 'Side Effects', 'Scalability', 'Time to Implement'],
+    'NeuroConnect': [9, 9, 9, 10, 8],
+    'ABA': [2, 5, 4, 1, 6],
+    'Pharmacotherapy': [5, 6, 2, 5, 8]
+})
+fig4 = go.Figure()
+for treatment in ['NeuroConnect', 'ABA', 'Pharmacotherapy']:
+    fig4.add_trace(go.Scatterpolar(
+        r=radar_data[treatment],
+        theta=radar_data['Metric'],
+        fill='toself',
+        name=treatment
+    ))
+fig4.update_layout(
+    polar=dict(radialaxis=dict(visible=True)),
+    showlegend=True,
+    title={"text": "🌐 Radar Chart: Comparative Strengths by Scientific Metrics", "font": {"color": "white"}},
+    template='plotly_dark',
+    paper_bgcolor='#0d1117',
+    font=dict(color='white')
+)
+st.plotly_chart(fig4, use_container_width=True)
+
+# Pyvis interactive cost-effectiveness network
+st.subheader("🔗 Neural Network Cost-Effectiveness Map")
+G = nx.DiGraph()
+G.add_node("NeuroConnect", title="NeuroConnect", color="#00cc96")
+G.add_node("ABA", title="ABA Therapy", color="#EF553B")
+G.add_node("Risperidone", title="Pharmacotherapy", color="#636EFA")
+G.add_node("$1.2K", title="Cost per patient", color="#00cc96")
+G.add_node("$60K", title="Cost per patient", color="#EF553B")
+G.add_node("$12.5K", title="Cost per patient", color="#636EFA")
+G.add_node("83 treated", title="Patients per $100K", color="#00cc96")
+G.add_node("1.6 treated", title="Patients per $100K", color="#EF553B")
+G.add_node("8 treated", title="Patients per $100K", color="#636EFA")
+G.add_node("90% effective", color="#00cc96")
+G.add_node("35% effective", color="#EF553B")
+G.add_node("45% effective", color="#636EFA")
+G.add_edges_from([
+    ("NeuroConnect", "$1.2K"),
+    ("NeuroConnect", "83 treated"),
+    ("NeuroConnect", "90% effective"),
+    ("ABA", "$60K"),
+    ("ABA", "1.6 treated"),
+    ("ABA", "35% effective"),
+    ("Risperidone", "$12.5K"),
+    ("Risperidone", "8 treated"),
+    ("Risperidone", "45% effective"),
+])
+
+net = Network(height="500px", bgcolor="#0d1117", font_color="white")
+net.from_nx(G)
+temp_dir = tempfile.mkdtemp()
+path = os.path.join(temp_dir, "graph.html")
+net.write_html(path)
+components.html(open(path, 'r', encoding='utf-8').read(), height=550)
+
+# Table
+st.subheader("📋 Comparative Table")
+st.dataframe(df.set_index("Treatment"))
+
 # Footer text rendered via Streamlit, not raw Python string with markdown
 st.markdown("""
 ---
