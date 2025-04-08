@@ -14,19 +14,19 @@ import os
 # Page setup
 st.set_page_config(page_title="NeuroConnect: Cost-Scalability Dashboard", layout="wide")
 
-# Inject dark theme CSS
+# Inject enhanced dark theme CSS
 st.markdown("""
 <style>
     body {
         background-color: #0d1117;
-        color: white;
+        color: #ffffff;
     }
-    .stApp {
+    .stApp, .css-1d391kg, .css-1v3fvcr, .css-hxt7ib, .css-qbe2hs, .css-ffhzg2 {
         background-color: #0d1117;
+        color: #ffffff;
     }
-    .css-1d391kg, .css-1v3fvcr, .css-hxt7ib {
-        background-color: #0d1117;
-        color: white;
+    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        color: #ffffff;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -57,7 +57,10 @@ fig.update_layout(
     yaxis=dict(title="Patients per $100K", side='left'),
     yaxis2=dict(title="Effectiveness (%)", overlaying='y', side='right'),
     barmode='group',
-    template='plotly_dark'
+    template='plotly_dark',
+    paper_bgcolor='#0d1117',
+    plot_bgcolor='#0d1117',
+    font=dict(color='white')
 )
 st.plotly_chart(fig, use_container_width=True)
 
@@ -66,7 +69,12 @@ st.subheader("🧮 Patient Reach per $100K")
 fig2 = go.Figure(data=[
     go.Pie(labels=df['Treatment'], values=df['Patients_per_100K_USD'], hole=0.4)
 ])
-fig2.update_layout(title="📈 Number of Patients Treated with $100K Investment", template='plotly_dark')
+fig2.update_layout(
+    title="📈 Number of Patients Treated with $100K Investment",
+    template='plotly_dark',
+    paper_bgcolor='#0d1117',
+    font=dict(color='white')
+)
 st.plotly_chart(fig2, use_container_width=True)
 
 # Violin-box hybrid plot
@@ -77,6 +85,7 @@ effect_data = pd.DataFrame({
 })
 fig3 = px.violin(effect_data, x="Treatment", y="BMI_Change", box=True, points="all", color="Treatment",
                  title="📉 BMI Change Distribution: Risperidone vs. NeuroConnect", template='plotly_dark')
+fig3.update_layout(paper_bgcolor='#0d1117', font=dict(color='white'))
 st.plotly_chart(fig3, use_container_width=True)
 
 # Radar chart
@@ -99,7 +108,9 @@ fig4.update_layout(
     polar=dict(radialaxis=dict(visible=True)),
     showlegend=True,
     title="🌐 Radar Chart: Comparative Strengths by Scientific Metrics",
-    template='plotly_dark'
+    template='plotly_dark',
+    paper_bgcolor='#0d1117',
+    font=dict(color='white')
 )
 st.plotly_chart(fig4, use_container_width=True)
 
