@@ -25,8 +25,8 @@ st.markdown("""
         background-color: #0d1117;
         color: #ffffff;
     }
-    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-        color: #ffffff;
+    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stSubheader {
+        color: #ffffff !important;
     }
 </style>
 """, unsafe_allow_html=True)
