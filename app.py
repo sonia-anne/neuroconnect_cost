@@ -82,8 +82,10 @@ fig4.update_layout(
 )
 st.plotly_chart(fig4, use_container_width=True)
 
+
 # Pyvis interactive cost-effectiveness network
 st.subheader("🔗 Neural Network Cost-Effectiveness Map")
+
 G = nx.DiGraph()
 G.add_node("NeuroConnect", title="NeuroConnect", color="#00cc96")
 G.add_node("ABA", title="ABA Therapy", color="#EF553B")
@@ -97,6 +99,7 @@ G.add_node("8 treated", title="Patients per $100K", color="#636EFA")
 G.add_node("90% effective", color="#00cc96")
 G.add_node("35% effective", color="#EF553B")
 G.add_node("45% effective", color="#636EFA")
+
 G.add_edges_from([
     ("NeuroConnect", "$1.2K"),
     ("NeuroConnect", "83 treated"),
@@ -109,12 +112,18 @@ G.add_edges_from([
     ("Risperidone", "45% effective"),
 ])
 
-net = Network(height="500px", bgcolor="#ffffff", font_color="black")
+net = Network(height="500px", bgcolor="#0d1117", font_color="white")  # modo oscuro
 net.from_nx(G)
+
 temp_dir = tempfile.mkdtemp()
 path = os.path.join(temp_dir, "graph.html")
-net.show(path)
-components.html(open(path, 'r', encoding='utf-8').read(), height=550)
+net.write_html(path)  # ✅ sin notebook=True para compatibilidad con Streamlit
+
+# Embed the HTML
+with open(path, 'r', encoding='utf-8') as file:
+    graph_html = file.read()
+components.html(graph_html, height=550)
+
 
 # Table
 st.subheader("📋 Comparative Table")
